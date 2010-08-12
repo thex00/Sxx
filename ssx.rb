@@ -1,34 +1,38 @@
-#!/usr/env/ruby
-
-# SSX is a XSS scanner written in Ruby, using nokogiri.
-# It fetches pages and scans them for XSS vulnerabilities.
-
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-# the actual scanning mechanism
 module Ssx
+  
+  class Engine
+    
+    def initialize((
+    end
+
+    def self.get_payload()
+      "<script>document.write("<ssx>true</ssx>")</script>"
+    end
+
+
+  end
+
+
 
 end
 
 
 module SsxInterface
   def self.scan(url)
-    # fetch the page, 
-    page = Nokogiri::HTML(open("http://#{url}"))
-    # get the script-tags contents
-    content = page.xpath("//script").collect(&:text)
-    puts content
-    
-
+    page = Nokogiri::HTML(open("http://#{url}/index.php?#{Ssx::Engine.get_payload}"))
+    content = page.xpath("//ssx").collect(&:text)
+    if content.include? "true" 
+      puts "#{url} is vulnerable."
+    end
   end
 end
 
 module Launch
   def self.usage
-    puts "\n(c) 2010 by thex00 - Ssx, a really lame XSS scanner. \n You need to give a url with it though!\n\n\n"
-    puts "Example: ssx \'www.example.com\'. \n\n\nOh, what you break isn\'t my fault, but your own. USE AT OWN RISK\n\n"
   end
 
   def self.main(argument)
