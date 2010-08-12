@@ -10,7 +10,7 @@ module Ssx
     end
 
     def self.get_payload()
-      "<script>document.write("<ssx>true</ssx>")</script>"
+      "<script>document.write(\"<ssx>true</ssx>\")</script>"
     end
 
 
