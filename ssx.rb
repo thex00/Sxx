@@ -6,7 +6,7 @@ module Ssx
   
   class Engine
     
-    def initialize((
+    def initialize()
     end
 
     def self.get_payload()
